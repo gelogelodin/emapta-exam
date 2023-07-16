@@ -12,7 +12,6 @@ export default {
   methods: {
     getTasks: function(){
       getTaskList().then((response) => {
-        console.log(response);
         this.taskList = response;
       })
     },
@@ -32,7 +31,6 @@ export default {
       if (flag){
         deleteTask(id).then((response) => {
           alert('Successfully Deleted Task!');
-          console.log(response);
           this.getTasks();
         });
       }
@@ -45,7 +43,6 @@ export default {
       
       updateTask(formData, task.task_id).then((response) => {
           alert('Task ' + task.name +' marked completed!');
-          console.log(response);
           this.getTasks();
         });
     }
