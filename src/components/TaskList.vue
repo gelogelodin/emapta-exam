@@ -1,5 +1,5 @@
 <script lang="ts">
-import { getTaskList } from '../services/taskService';
+import { getTaskList, deleteTask } from '../services/taskService';
 import { statusEnum } from '../constants/statusEnum';
 
 export default {
@@ -26,6 +26,16 @@ export default {
       else if (status === statusEnum.STATUS_COMPLETED){
 
       }
+    },
+    deleteTask: function(id:string){
+      const flag = confirm("Are you sure you want to delete task?");
+      if (flag){
+        deleteTask(id).then((response) => {
+          alert('Successfully Deleted Task!');
+          console.log(response);
+          this.getTasks();
+        });
+      }
     }
   },
   mounted() {
@@ -50,7 +60,11 @@ export default {
                          'bg-green-600': task.state === 'completed' }">
             {{ task.state }}
           </div>
-          <p class="font-normal text-gray-700 dark:text-gray-400">{{ task.description }}</p>
+          <p class="font-normal text-gray-700 dark:text-gray-400 mb-4">{{ task.description }}</p>
+          <a :href="`/task/${ task.task_id }`">
+            <button class="rounded bg-blue-600 text-white text-sm mr-4">Update</button>
+          </a>
+          <button @click="deleteTask(task.task_id)" class="rounded bg-red-600 text-white text-sm">Delete</button>
       </a>
     </div>
   </section>

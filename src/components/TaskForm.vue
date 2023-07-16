@@ -5,7 +5,7 @@ export default {
   name: "TaskList",
   data(){
     return {
-      method: 'post',
+      task_id: <string | string[]>"",
       name: null,
       state: null,
       description: "",
@@ -26,7 +26,14 @@ export default {
         return false;
       }
 
-      if (this.method === 'post'){
+      if (this.task_id){
+        updateTask(formData, this.task_id).then((response) => {
+          alert('Successfully Updated Task!');
+          console.log(response);
+          this.$router.push({path: '/'});
+        });
+      }
+      else{
         createTask(formData).then((response) => {
           alert('Successfully Saved Task!');
           console.log(response);
@@ -58,9 +65,17 @@ export default {
     },
     resetError: function(){
       this.formError = [];
-    }
+    },
   },
   mounted() {
+    if (this.$route.params.id){
+      this.task_id = this.$route.params.id;
+      getTask(this.$route.params.id).then((response) => {
+        this.name = response.name;
+        this.state = response.state;
+        this.description = response.description;
+      });
+    }
   }
 }
 

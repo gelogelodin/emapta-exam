@@ -8,6 +8,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
     { path: '/', component: TaskList},
     { path: '/task', component: TaskForm},
+    { path: '/task/:id', component: TaskForm},
 ]
 
 const router = createRouter({

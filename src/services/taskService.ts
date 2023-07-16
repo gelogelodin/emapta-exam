@@ -8,7 +8,7 @@ export async function getTaskList(){
     return response.data;
 }
 
-export async function getTask(id:string){
+export async function getTask(id:string | string[]){
     const response  = await axios.get(VITE_API_ENDPOINT + '/tasks/' + id, { headers: { 'x-api-key': VITE_API_KEY} });
     return response.data;
 }
@@ -18,12 +18,12 @@ export async function createTask(data:any){
     return response.data;
 }
 
-export async function updateTask(data:any, id:string){
+export async function updateTask(data:any, id:string | string[]){
     const response  = await axios.put(VITE_API_ENDPOINT + '/tasks/' + id, data , { headers: { 'x-api-key': VITE_API_KEY} });
     return response.data;
 }
 
-export async function deleteTask(id:string){
+export async function deleteTask(id:string | string[]){
     const response  = await axios.delete(VITE_API_ENDPOINT + '/tasks/' + id, { headers: { 'x-api-key': VITE_API_KEY} });
     return response.data;
 }
